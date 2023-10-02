@@ -3,6 +3,8 @@ use std::{fs::File, path::Path};
 
 use super::error::Result;
 
+use crate::instructions::Instructions;
+
 const CONFIG_FILE: &str = "/config.json";
 
 #[derive(Serialize, Deserialize)]
@@ -31,8 +33,18 @@ impl Db {
             Ok(db)
         }
     }
+
+    pub fn exec_query<T: Serialize>(&self, query: Instructions<T>) -> u8 {
+        match query {
+            Instructions::Select(data) => 1,
+            Instructions::Update(data) => 2,
+            Instructions::Delete(data) => 3,
+            Instructions::Insert(data) => 4,
+            Instructions::CreateTable(data) => 5,
+        }
+    }
 }
 
 #[cfg(test)]
-#[path = "../../_tests/database/db.rs"]
+#[path = "../../_tests/database/mod.rs"]
 mod tests;
