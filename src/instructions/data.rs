@@ -22,5 +22,5 @@ pub struct InsertData<T: Serialize> {
 }
 
 pub struct CreateTable {
-    table: String,
+    pub table: String,
 }

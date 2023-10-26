@@ -1,18 +1,18 @@
-use crate::instructions::{data::SelectData, Instructions};
+use crate::instructions::{data::CreateTable, Instructions};
 
 use super::Db;
 
 #[test]
-fn database_exec_query_test() -> core::result::Result<(), Box<dyn std::error::Error>> {
+fn database_exec_query_create_table_test() -> core::result::Result<(), Box<dyn std::error::Error>> {
     // initialize database
     let db = Db::init("./db")?;
 
     assert_eq!(
-        db.exec_query(Instructions::<()>::Select(SelectData {
-            table: "hola".to_string(),
-            filters: None
-        })),
-        1
+        db.exec_query(Instructions::<()>::CreateTable(CreateTable {
+            table: "table1".to_string()
+        }))
+        .unwrap(),
+        ()
     );
 
     Ok(())

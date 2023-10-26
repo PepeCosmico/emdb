@@ -5,7 +5,11 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, ThisError)]
 pub enum Error {
     #[error("Could not create the Db directory")]
-    CreateDirFailure,
+    CreateDbDirFailure(std::io::Error),
+    #[error("Could not open the db config file")]
+    FailToOpenConfigFile(std::io::Error),
+    #[error("Could not deserialize the config file")]
+    ConfigDeserError(serde_json::Error),
     #[error("Io error")]
     IoError(std::io::Error),
     #[error("Serialize error")]

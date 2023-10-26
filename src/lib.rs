@@ -2,3 +2,4 @@
 mod database;
 mod instructions;
 mod pool;
+mod query;
